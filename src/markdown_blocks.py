@@ -1,3 +1,7 @@
+from htmlnode import HTMLNode, LeafNode, ParentNode
+from textnode import TextNode, text_node_to_html_node
+from inline_markdown import text_to_textnodes
+
 block_type_paragraph = "paragraph"
 block_type_heading = "heading"
 block_type_code = "code"
@@ -56,5 +60,73 @@ def block_to_block_type(block):
     return block_type_paragraph
 
 
-def block_to_HTML_node(block):
-    pass
+def text_to_children(text):
+    text_nodes = text_to_textnodes(text)
+    children = []
+    for text_node in text_nodes:
+        html_node = text_node_to_html_node(text_node)
+        children.append(html_node)
+    return children
+
+
+# def heading_block_to_HTMLNode(heading):
+#     h1 = "# "
+#     h2 = "## "
+#     h3 = "### "
+#     h4 = "#### "
+#     h5 = "##### "
+#     h6 = "###### "
+
+#     if heading.startwith(h1):
+#         string = heading.split(h1)
+#         return HTMLNode(h1, string[1])
+#     if heading.startwith(h2):
+#         string = heading.split(h2)
+#         return HTMLNode(h2, string[1])
+
+#     if heading.startwith(h3):
+#         string = heading.split(h3)
+#         return HTMLNode(h3, string[1])
+
+#     if heading.startwith(h4):
+#         string = heading.split(h4)
+#         return HTMLNode(h4, string[1])
+
+#     if heading.startwith(h5):
+#         string = heading.split(h5)
+#         return HTMLNode(h5, string[1])
+
+#     if heading.startwith(h6):
+#         string = heading.split(h6)
+#         return HTMLNode(h6, string[1])
+
+#     raise Exception("Not a heading")
+
+
+# def paragraph_block_to_HTMLNode(paragraph):
+#     return HTMLNode("p", paragraph)
+
+
+# def ulist_block_to_HTMLNode(ulist):
+#     lines = ulist.split("\n")
+
+#     child_lst = []
+
+#     for line in lines:
+#         child_lst.append(LeafNode("li", line))
+
+#     return HTMLNode("ul", "", child_lst)
+
+
+# def olist_block_to_HTMLNode(ulist):
+#     lines = ulist.split("\n")
+
+#     child_lst = []
+
+#     for line in lines:
+#         child_lst.append(LeafNode("li", line))
+
+#     return HTMLNode("ol", "", child_lst)
+
+# def code_block_to_HTMLNode(code):
+#     code.replace("```", "<code>")
